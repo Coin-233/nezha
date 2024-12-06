@@ -4,7 +4,7 @@
 #   System Required: CentOS 7+ / Debian 8+ / Ubuntu 16+ / Alpine 3+ /
 #     Arch 仅测试了一次，如有问题带截图反馈 dysf888@pm.me
 #   Description: 哪吒监控安装脚本
-#   Github: https://github.com/naiba/nezha
+#   Github: https://github.com/Coin-233/nezha
 #========================================================
 
 NZ_BASE_PATH="/opt/nezha"
@@ -134,7 +134,7 @@ pre_check() {
         Docker_IMG="registry.cn-shanghai.aliyuncs.com\/naibahq\/nezha-dashboard"
     else
         if [ -z "$CN" ]; then
-            GITHUB_RAW_URL="raw.githubusercontent.com/naiba/nezha/master"
+            GITHUB_RAW_URL="raw.githubusercontent.com/Coin-233/nezha/master"
             GITHUB_URL="github.com"
             Get_Docker_URL="get.docker.com"
             Get_Docker_Argu=" "
@@ -594,19 +594,19 @@ restart_and_update_docker() {
 }
 
 restart_and_update_standalone() {
-    _version=$(curl -m 10 -sL "https://api.github.com/repos/naiba/nezha/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed 's/\"//g;s/,//g;s/ //g')
+    _version=$(curl -m 10 -sL "https://api.github.com/repos/Coin-233/nezha/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed 's/\"//g;s/,//g;s/ //g')
     if [ -z "$_version" ]; then
         _version=$(curl -m 10 -sL "https://gitee.com/api/v5/repos/naibahq/nezha/releases/latest" | awk -F '"' '{for(i=1;i<=NF;i++){if($i=="tag_name"){print $(i+2)}}}')
     fi
     if [ -z "$_version" ]; then
-        _version=$(curl -m 10 -sL "https://fastly.jsdelivr.net/gh/naiba/nezha/" | grep "option\.value" | awk -F "'" '{print $2}' | sed 's/naiba\/nezha@/v/g')
+        _version=$(curl -m 10 -sL "https://fastly.jsdelivr.net/gh/Coin-233/nezha/" | grep "option\.value" | awk -F "'" '{print $2}' | sed 's/naiba\/nezha@/v/g')
     fi
     if [ -z "$_version" ]; then
-        _version=$(curl -m 10 -sL "https://gcore.jsdelivr.net/gh/naiba/nezha/" | grep "option\.value" | awk -F "'" '{print $2}' | sed 's/naiba\/nezha@/v/g')
+        _version=$(curl -m 10 -sL "https://gcore.jsdelivr.net/gh/Coin-233/nezha/" | grep "option\.value" | awk -F "'" '{print $2}' | sed 's/naiba\/nezha@/v/g')
     fi
 
     if [ -z "$_version" ]; then
-        err "获取版本号失败，请检查本机能否链接 https://api.github.com/repos/naiba/nezha/releases/latest"
+        err "获取版本号失败，请检查本机能否链接 https://api.github.com/repos/Coin-233/nezha/releases/latest"
         return 1
     else
         echo "当前最新版本为: ${_version}"
@@ -620,7 +620,7 @@ restart_and_update_standalone() {
     fi
 
     if [ -z "$CN" ]; then
-        NZ_DASHBOARD_URL="https://${GITHUB_URL}/naiba/nezha/releases/download/${_version}/dashboard-linux-${os_arch}.zip"
+        NZ_DASHBOARD_URL="https://${GITHUB_URL}/Coin-233/nezha/releases/download/${_version}/dashboard-linux-${os_arch}.zip"
     else
         NZ_DASHBOARD_URL="https://${GITHUB_URL}/naibahq/nezha/releases/download/${_version}/dashboard-linux-${os_arch}.zip"
     fi
@@ -746,7 +746,7 @@ uninstall_dashboard() {
 uninstall_dashboard_docker() {
     sudo $DOCKER_COMPOSE_COMMAND -f ${NZ_DASHBOARD_PATH}/docker-compose.yaml down
     sudo rm -rf $NZ_DASHBOARD_PATH
-    sudo docker rmi -f ghcr.io/naiba/nezha-dashboard >/dev/null 2>&1
+    sudo docker rmi -f ghcr.io/Coin-233/nezha-dashboard >/dev/null 2>&1
     sudo docker rmi -f registry.cn-shanghai.aliyuncs.com/naibahq/nezha-dashboard >/dev/null 2>&1
 }
 
@@ -835,7 +835,7 @@ show_usage() {
 show_menu() {
     printf "
     ${green}哪吒监控管理脚本${plain} ${red}${NZ_VERSION}${plain}
-    --- https://github.com/naiba/nezha ---
+    --- https://github.com/Coin-233/nezha ---
     ${green}1.${plain}  安装面板端
     ${green}2.${plain}  修改面板配置
     ${green}3.${plain}  启动面板
